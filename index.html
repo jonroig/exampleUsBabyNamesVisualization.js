@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script>
+		  	google.charts.load('current', {packages: ['corechart', 'line']});
+			google.charts.setOnLoadCallback(getNameData);
+
+			function drawBasic(inputData) {
+
+				var data = new google.visualization.DataTable();
+
+				var rowData = [['Year', 'Births']]
+				for (var year in inputData) {
+					rowData.push([year, inputData[year].births]);
+				}
+
+				var data = google.visualization.arrayToDataTable(rowData);
+
+				var options = {
+					title: 'Births over time',
+					curveType: 'function',
+					legend: { position: 'bottom' },
+					hAxis: {
+			          title: 'Year',
+			          ticks: [0,20,30]
+			        },
+			        vAxis: {
+			          title: 'Popularity'
+			        }
+		        };
+
+			    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+			    chart.draw(data, options);
+			}
+
+	  		function getNameData() {
+	  			$.ajax({
+	  				url: "/name",
+	  				data: {
+	  					name: $('#name').val(),
+	  					sex: $('#sex').val()
+	  				}
+	  			}).done(function(data) {
+	  				drawBasic(data);
+	  			});
+	  		}
+
+		</script>
+	</head>
+	<body>
+		<input type="text" id="name" value="Kanye">
+
+		<select id="sex">
+		  <option value="M">Male</option>
+		  <option value="F">Female</option>
+		</select>
+
+		<input type="button" value="Look Up" onclick="getNameData()">
+		<div id="chart_div"></div>
+	</body>
+
+
+
+</html>
