@@ -1,2 +1,4 @@
 # exampleUsBabyNamesVisualization.js
-A basic example of how to use the usBabyNames NPM module to visualize name popularity
+A basic example of how to use usBabyNames.js in an app
+
+usBabyNames.js: https://github.com/jonroig/usBabyNames.js
