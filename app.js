@@ -1,10 +1,11 @@
-var express = require('express');
-var app = express();
-var babyNames = require('usbabynames');
-var fs = require('fs');
+import express from 'express';
+import { getNameRankAndBirthsByYear } from 'usbabynames';
+import fs from 'fs';
+
+const app = express();
 
 app.get('/name', function(req, res) {
-	var theNames = babyNames.getNameRankAndBirthsByYear(req.query.name, {sex: req.query.sex, getEmptyYears: true})
+	var theNames = getNameRankAndBirthsByYear(req.query.name, {sex: req.query.sex, getEmptyYears: true})
 		.then(function(data){
 			res.json(data);
 	});
